@@ -1,0 +1,37 @@
+# Custom Data
+
+Custom policies may require additional data in order to determine an answer.
+For example, an allowed list of resources that can be created. Instead of hardcoding 
+this information inside of your policy, Trivy allows passing paths to data 
+files with the --data flag.[More Info](https://aquasecurity.github.io/trivy/v0.27.1/docs/misconfiguration/custom/data/)
+
+```
+$ trivy conf --severity HIGH,CRITICAL --policy ./policy --data data --namespaces user ./configs
+
+2023-06-16T09:39:14.372+0100	INFO	Misconfiguration scanning is enabled
+2023-06-16T09:39:14.670+0100	INFO	Detected config files: 1
+
+Dockerfile (dockerfile)
+
+Tests: 20 (SUCCESSES: 18, FAILURES: 2, EXCEPTIONS: 0)
+Failures: 2 (HIGH: 2, CRITICAL: 0)
+
+HIGH: Specify at least 1 USER command in Dockerfile with non-root user as argument
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Running containers with 'root' user can lead to a container escape situation. It is a best practice to run containers as non-root users, which can be done by adding a 'USER' statement to the Dockerfile.
+
+See https://avd.aquasec.com/misconfig/ds002
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+HIGH: '--no-cache' is missed: apk add bash
+═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+You should use 'apk add' with '--no-cache' to clean package cached data and reduce image size.
+
+See https://avd.aquasec.com/misconfig/ds025
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ Dockerfile:3
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   3 [ RUN apk add bash
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+```
