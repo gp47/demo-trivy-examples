@@ -6,7 +6,7 @@ you can pass the directory where those policies are stored with --policy option.
 [More Info](https://aquasecurity.github.io/trivy/v0.27.1/docs/misconfiguration/custom/)
 
 ```
-trivy conf --policy ./policy --namespaces user ./configs
+$ trivy conf --policy ./policy --namespaces user ./configs
 
 2023-06-16T09:51:09.019+0100	INFO	Misconfiguration scanning is enabled
 2023-06-16T09:51:09.457+0100	INFO	Detected config files: 1
@@ -39,7 +39,7 @@ See https://avd.aquasec.com/misconfig/ksv001
 ```
 or
 ```
-trivy conf --severity HIGH,CRITICAL --policy ./policy --namespaces user ./configs
+$ trivy conf --severity HIGH,CRITICAL --policy ./policy --namespaces user ./configs
 
 2023-06-16T09:52:02.760+0100	INFO	Misconfiguration scanning is enabled
 2023-06-16T09:52:03.185+0100	INFO	Detected config files: 1
